@@ -1,3 +1,3 @@
 <h1>
-    Podcasts Home View
+    Blog Home View
 </h1>

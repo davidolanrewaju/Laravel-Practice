@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PodcastsController;
@@ -25,21 +26,21 @@ Route::get('/', HomeController::class);
 Route::fallback(FallbackController::class);
 
 //View routes
-Route::prefix('podcast')->group(function () {
+Route::prefix('blog')->group(function () {
     //GET Requests
-    Route::get('/', [PodcastsController::class, 'index'])->name('podcast.index');
-    Route::get('/{id}', [PodcastsController::class, 'show'])->name('podcast.show');
+    Route::get('/', [BlogController::class, 'index'])->name('blog.index');
+    Route::get('/{id}', [BlogController::class, 'show'])->name('blog.show');
 
     //POST Requests
-    Route::get('/create', [PodcastsController::class, 'create'])->name('podcast.create');
-    Route::post('/', [PodcastsController::class, 'store'])->name('podcast.store');
+    Route::get('/create', [BlogController::class, 'create'])->name('blog.create');
+    Route::post('/', [BlogController::class, 'store'])->name('blog.store');
 
     //PUT/PATCH Requests
-    Route::get('/edit/{id}', [PodcastsController::class, 'edit'])->name('podcast.edit');
-    Route::put('/{id}', [PodcastsController::class, 'update'])->name('podcast.update');
+    Route::get('/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
+    Route::put('/{id}', [BlogController::class, 'update'])->name('blog.update');
 
     //DELETE Requests
-    Route::delete('/delete/{id}', [PodcastsController::class, 'destroy'])->name('podcast.destroy');
+    Route::delete('/delete/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
 });
 
 // Route::resource('podcast', PodcastsController::class);
