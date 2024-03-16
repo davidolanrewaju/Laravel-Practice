@@ -8,8 +8,8 @@
     <title>Document</title>
 </head>
 <body>
-    <h1 class="mt-6 text-7xl font-bold">
-        Hello world!
+    <h1 class="mt-6 text-5xl font-bold">
+        Welcome to my Blog
       </h1>
 </body>
 </html>

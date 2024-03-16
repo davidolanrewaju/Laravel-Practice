@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,10 +13,11 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $posts = DB::select('SELECT * FROM posts');
-        dd($posts);
-        
-        return view('blog.index');
+        $posts = Post::orderBy('id', 'desc')->get();
+
+        return view('blog.index', [
+            'posts' => $posts,
+        ]);
     }
 
     /**
@@ -23,7 +25,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
+        return view('blog.createPost');
     }
 
     /**
@@ -31,7 +33,17 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Post::create(
+            [
+                'title' => $request->title,
+                'description' => $request->description,
+                'body' => $request->body,
+                'min_to_read' => $request->min_to_read,
+                'image_path' => 'temporary',
+                'is_published' => $request->is_published === 'on' ? true : false,
+            ]
+        );
+        return redirect(route('blog.index'));
     }
 
     /**
@@ -39,7 +51,11 @@ class BlogController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        return view('blog.showPost', [
+            'post' => $post
+        ]);
     }
 
     /**

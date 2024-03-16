@@ -27,13 +27,13 @@ Route::fallback(FallbackController::class);
 
 //View routes
 Route::prefix('blog')->group(function () {
-    //GET Requests
-    Route::get('/', [BlogController::class, 'index'])->name('blog.index');
-    Route::get('/{id}', [BlogController::class, 'show'])->name('blog.show');
-
     //POST Requests
     Route::get('/create', [BlogController::class, 'create'])->name('blog.create');
     Route::post('/', [BlogController::class, 'store'])->name('blog.store');
+    
+    //GET Requests
+    Route::get('/', [BlogController::class, 'index'])->name('blog.index');
+    Route::get('/{id}', [BlogController::class, 'show'])->name('blog.show');
 
     //PUT/PATCH Requests
     Route::get('/edit/{id}', [BlogController::class, 'edit'])->name('blog.edit');
