@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Post;
 use Faker\Factory;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
@@ -16,8 +17,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(PostsTableSeeder::class);
-
-        Product::factory(10)->create();
+        Post::factory(10)->create();
     }
 }
