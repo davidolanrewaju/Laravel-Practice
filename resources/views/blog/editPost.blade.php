@@ -12,39 +12,40 @@
     <div class="w-4/5 mx-auto">
         <div class="text-center pt-16">
             <h1 class="text-3xl text-gray-700">
-                Add new post
+                Edit Post
             </h1>
             <hr class="border border-1 border-gray-300 mt-10">
         </div>
 
         <div class="m-auto pt-12">
-            <form action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('blog.update', $post->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="flex items-center gap-2">
-                    <input type="checkbox" class="bg-transparent block border-b-2 text-2xl outline-none"
-                        name="is_published">
+                    <input type="checkbox" {{ $post->is_published === true ? 'checked' : '' }}
+                        class="bg-transparent block border-b-2 text-2xl outline-none" name="is_published">
                     <label for="is_published" class="text-gray-500 text-xl">
                         Is Published
                     </label>
                 </div>
 
-                <input type="text" name="title" placeholder="Title..."
+                <input type="text" name="title" value="{{ $post->title }}"
                     class="bg-transparent block border-b-2 w-full h-20 text-xl outline-none">
                 @error('title')
                     <span class="text-md text-red-500">{{ $message }}</span>
                 @enderror
 
-                <input type="text" name="description" placeholder="Description..."
+                <input type="text" name="description" value="{{ $post->description }}"
                     class="bg-transparent block border-b-2 w-full h-20 text-xl outline-none">
                 @error('description')
                     <span class="text-md text-red-500">{{ $message }}</span>
                 @enderror
 
-                <input type="number" name="min_to_read" placeholder="Minutes to read..."
+                <input type="number" name="min_to_read" value="{{ $post->min_to_read }}"
                     class="bg-transparent block border-b-2 w-full h-20 text-xl outline-none">
 
-                <textarea name="body" placeholder="Body..."
-                    class="py-8 bg-transparent block border-b-2 w-full h-60 text-xl outline-none">
+                <textarea name="body" class="py-8 bg-transparent block border-b-2 w-full h-60 text-xl outline-none">
+                    {{ $post->body }}
                 </textarea>
                 @error('body')
                     <span class="text-md text-red-500">{{ $message }}</span>
@@ -66,7 +67,7 @@
 
                     <button type="submit"
                         class="uppercase ml-9 mt-15 hover:bg-emerald-400 bg-emerald-600 text-gray-100 text-md font-semibold py-3 px-8 rounded-full">
-                        Submit Post
+                        Update Post
                     </button>
                 </div>
             </form>

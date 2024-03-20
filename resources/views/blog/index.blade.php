@@ -41,14 +41,18 @@
                         {{ $post->description }}
                     </p>
 
-                    <span class="text-gray-500 text-sm sm:text-base">
-                        Made by:
-                        <a href=""
-                            class="text-green-500 italic hover:text-green-400 hover:border-b-2 border-green-400 pb-3 transition-all">
-                            Dary
-                        </a>
-                        on {{ $post->updated_at }}
-                    </span>
+                    <div class="flex justify-between">
+                        <span class="text-gray-500 text-sm sm:text-base">
+                            Made by:
+                            <a href=""
+                                class="text-green-500 italic hover:text-green-400 hover:border-b-2 border-green-400 pb-3 transition-all">
+                                Dary
+                            </a>
+                            on {{ $post->updated_at }}
+                        </span>
+                        <a href={{ route('blog.edit', $post->id) }}
+                            class="primary-btn inline text-gray-100 text-base sm:text-md bg-green-500 py-2 px-8 shadow-xl rounded-3xl transition-all hover:bg-green-400">Edit</a>
+                    </div>
                 </div>
             </div>
         </div>

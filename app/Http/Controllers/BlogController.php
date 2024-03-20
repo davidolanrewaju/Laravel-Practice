@@ -33,13 +33,20 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title'=>'required | unique:posts | max:200',
+            'description'=>'required',
+            'body'=>'required',
+            'image' => ['required', 'mimes:png,jpg,jpeg', 'max:2040'],
+        ]);
+
         Post::create(
             [
                 'title' => $request->title,
                 'description' => $request->description,
                 'body' => $request->body,
                 'min_to_read' => $request->min_to_read,
-                'image_path' => 'temporary',
+                'image_path' => $this->storeImage($request),
                 'is_published' => $request->is_published === 'on' ? true : false,
             ]
         );
@@ -63,7 +70,11 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $post = Post::where('id', $id)->first();
+
+        return view('blog.editPost', [
+            'post' => $post,
+        ]);
     }
 
     /**
@@ -71,7 +82,7 @@ class BlogController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return redirect(route('blog.index'));
     }
 
     /**
@@ -80,5 +91,12 @@ class BlogController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    private function storeImage($request)
+    {
+        $imageName = uniqid() . '-' . $request->title . '.' . $request->image->extension();
+
+        return $request->image->move(public_path('images'), $imageName);
     }
 }
